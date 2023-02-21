@@ -1,30 +1,29 @@
-import { deleteTask, toggleTask} from "./actions";
-import { connect } from "react-redux";
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { toggleTask, deleteTask } from './actions';
 
 class TodoItem extends Component {
-    handleDelete = () => {
-        this.props.dispatch(deleteTask(this.props.task.id));
-    };
+  handleToggle = () => {
+    const { dispatch, task } = this.props;
+    dispatch(toggleTask(task.id));
+  };
 
-    handleToggle = () => {
-        this.props.dispatch(toggleTask(this.props.task.id));
-    };
+  handleDelete = () => {
+    const { dispatch, task } = this.props;
+    dispatch(deleteTask(task.id));
+  };
 
-    render(){
-        return (
-            <li>
-                <input
-                    type = "checkbox"
-                    checked = {this.props.task.completed}
-                    onChange = {this.handleToggle}
-                />
-                <span style  = {{textDecoration: this.props.task.completed ? 'line-through' : 'none'}}>{this.props.task.payload}
-                </span>
-                <button onClick = {this.handleDelete}>Delete</button>
-            </li>
-        )
-    }
+  render() {
+    const { task } = this.props;
+
+    return (
+      <li>
+        <input type="checkbox" checked={task.completed} onChange={this.handleToggle} />
+        <span style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>{task.payload}</span>
+        <button onClick={this.handleDelete}>Delete</button>
+      </li>
+    );
+  }
 }
 
 export default connect()(TodoItem);

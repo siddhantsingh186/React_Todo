@@ -1,39 +1,35 @@
-import { addTask } from "./actions"
-import { connect } from "react-redux"
-import React, { Component } from "react"
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addTask } from './actions';
 
-class TodoForm extends Component{
-    state = {
-        inputValue: ''
-    }
+class TodoForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: ''
+    };
+  }
 
-    handleChange = (event) => {
-        this.setState({
-            inputValue: event.target.value
-        })
-    }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    dispatch(addTask({id: Date.now(), payload: this.state.inputValue, completed: false}));
+    this.setState({ inputValue: '' });
+  }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.dispatch(addTask(this.state.inputValue));
-        this.setState({
-            inputValue: ''
-        })
-    }
+  handleInputChange = (e) => {
+    this.setState({ inputValue: e.target.value });
+  }
 
-
-render (){
+  render() {
+    const { inputValue } = this.state;
     return (
-        <form onSubmit = {this.handleSubmit}>
-            <input
-                type = "text"
-                value = {this.state.inputValue}
-                onChange = {this.handleChange}
-            />
-            <button type = "submit">Add Task</button>
-        </form>
-    )
-    }
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" value={inputValue} onChange={this.handleInputChange} />
+        <button type="submit">Add Task</button>
+      </form>
+    );
+  }
 }
 
 export default connect()(TodoForm);
