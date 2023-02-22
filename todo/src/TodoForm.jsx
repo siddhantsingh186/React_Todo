@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addTask } from './actions';
-
+import "./TodoForm.css"
 class TodoForm extends Component {
   constructor(props) {
     super(props);
