@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { addTask } from './actions';
-
+import './TodoForm.css'
 function TodoForm({dispatch}){
     const [inputValue, setInputValue] = useState('')
 
